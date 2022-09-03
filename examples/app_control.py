@@ -19,26 +19,40 @@ ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
 ws.start()
 led_status = False
 
+def reset_colors():
+    car.write_light_color_at(0, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(1, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(2, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(3, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(4, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(5, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(6, [0, 0, 0], preset=car.LIGHT_REAR)
+    car.write_light_color_at(7, [0, 0, 0], preset=car.LIGHT_REAR)
+
 def on_receive(data):
     global led_status
 
     #Move
     if 'K' in data.keys() and 'A' in data.keys():
+
+        reset_colors()
+
         if data['K'] == "left":
             car.write_light_color_at(0, [50, 50, 0], preset=car.LIGHT_REAR)
             car.write_light_color_at(1, [50, 50, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(6, [0, 0, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(7, [0, 0, 0], preset=car.LIGHT_REAR)
         elif data['K'] == "right":
-            car.write_light_color_at(0, [0, 0, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(1, [0, 0, 0], preset=car.LIGHT_REAR)
             car.write_light_color_at(6, [50, 50, 0], preset=car.LIGHT_REAR)
             car.write_light_color_at(7, [50, 50, 0], preset=car.LIGHT_REAR)
-        else:
-            car.write_light_color_at(0, [0, 0, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(1, [0, 0, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(6, [0, 0, 0], preset=car.LIGHT_REAR)
-            car.write_light_color_at(7, [0, 0, 0], preset=car.LIGHT_REAR)
+        elif data['K'] == "backward":
+            car.write_light_color_at(0, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(1, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(2, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(3, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(4, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(5, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(6, [50, 0, 0], preset=car.LIGHT_REAR)
+            car.write_light_color_at(7, [50, 0, 0], preset=car.LIGHT_REAR)
+            
         car.light_excute()
             
         car.move(data['K'], data['A'])
